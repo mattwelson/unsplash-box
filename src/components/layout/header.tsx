@@ -20,7 +20,13 @@ export function Header() {
   return (
     <header className="border-b">
       <div className="mx-auto flex max-w-6xl items-center justify-between p-4">
-        <Image src={Logo as StaticImport} alt="UnsplashBox Logo" />
+        <Link href="/">
+          <Image
+            src={Logo as StaticImport}
+            alt="UnsplashBox Logo"
+            className="dark:opacity-90 dark:contrast-200 dark:invert"
+          />
+        </Link>
         <div className="flex gap-2">
           {navLinks.map(({ href, text }) => (
             <Button

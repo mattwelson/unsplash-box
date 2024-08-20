@@ -4,6 +4,7 @@ import { Be_Vietnam_Pro as FontSans } from "next/font/google";
 import { type Metadata } from "next";
 
 import { cn } from "@/lib/utils";
+import { Header } from "@/components/layout/header";
 
 export const metadata: Metadata = {
   title: "Unsplash Box",
@@ -24,11 +25,19 @@ export default function RootLayout({
     <html
       lang="en"
       className={cn(
-        "bg-background min-h-screen font-sans font-medium antialiased",
+        "bg-background font-sans font-light antialiased",
         fontSans.variable,
       )}
     >
-      <body>{children}</body>
+      <body className="flex min-h-screen flex-col">
+        <Header />
+        <main className="flex flex-1">{children}</main>
+        <footer className="z-10 px-4 text-center 2xl:text-left">
+          <div className="mx-auto max-w-lg py-8">
+            Made by <span className="font-semibold">@mattwelson</span>
+          </div>
+        </footer>
+      </body>
     </html>
   );
 }
