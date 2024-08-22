@@ -2,8 +2,7 @@ import Image from "next/image";
 
 import HeroLeft from "@/images/hero-left.png";
 import HeroRight from "@/images/hero-right.png";
-import { Input } from "@/components/ui/input";
-import { SearchBox } from "./search/_components/search-box";
+import { SearchForm } from "./search/_components/search-form";
 
 export default function HomePage() {
   return (
@@ -24,7 +23,7 @@ export default function HomePage() {
             Unsplash
           </a>
         </div>
-        <SearchBox />
+        <SearchForm />
       </div>
       <div className="absolute right-0 top-0 -z-10 hidden xl:block">
         <Image src={HeroRight} alt="" />

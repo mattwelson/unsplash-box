@@ -20,9 +20,9 @@ export function ImageGrid({ images }: { images?: UnsplashImage[] }) {
   const quantisedImages = quantise(images, columns);
 
   return (
-    <div className="mx-4 flex gap-4">
+    <div className="mx-4 flex gap-6">
       {quantisedImages.map((col, i) => (
-        <div key={i} className="flex flex-1 flex-col gap-4">
+        <div key={i} className="flex flex-1 flex-col gap-6">
           {col.map((image) => (
             <ImageGridItem key={image.id} image={image} />
           ))}

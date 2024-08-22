@@ -24,9 +24,10 @@ export function ImageGridItem({ image }: { image: UnsplashImage }) {
     <Link
       href={`/images/${image.id}`}
       key={image.id}
-      className="relative aspect-auto w-full"
+      className="relative aspect-auto w-full overflow-hidden rounded"
       style={{
         aspectRatio: image.width / image.height,
+        background: image.color,
       }}
     >
       <Image
@@ -34,6 +35,7 @@ export function ImageGridItem({ image }: { image: UnsplashImage }) {
         loader={createImageLoader({})}
         alt={image.alt_description}
         placeholder="blur"
+        // TODO: Blur hash isn't working!
         blurDataURL={image.blur_hash}
         fill
         // TODO: Change this to include 25vw and 33vw

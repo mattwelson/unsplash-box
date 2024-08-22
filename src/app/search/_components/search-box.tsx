@@ -15,7 +15,7 @@ const SearchBox = React.forwardRef<HTMLInputElement, InputProps>(
       <div className={cn("relative mx-auto w-full max-w-xl", className)}>
         <Input
           placeholder="Enter your keywords..."
-          className="h-auto bg-background px-4 py-5"
+          className="h-auto bg-background px-4 py-5 dark:bg-slate-800"
           autoFocus
           ref={ref}
           {...props}
