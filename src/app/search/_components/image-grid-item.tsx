@@ -1,25 +1,8 @@
-"use client";
-
-import Image from "next/image";
 import Link from "next/link";
-import type { UnsplashImage } from "@/server/unsplash";
+import type { UnsplashImageSchema } from "@/server/unsplash";
+import { UnsplashImage } from "@/components/unsplash/unsplash-image";
 
-export function createImageLoader({ crop = "entropy" }: { crop?: string }) {
-  return function ({
-    src,
-    width,
-    quality = 80,
-  }: {
-    src: string;
-    width: number;
-    quality?: number;
-  }) {
-    return `${src}&w=${width}&q=${quality}&crop=${crop}&auto=format`;
-  };
-}
-
-// TODO: make the number of image grid columns dynamic
-export function ImageGridItem({ image }: { image: UnsplashImage }) {
+export function ImageGridItem({ image }: { image: UnsplashImageSchema }) {
   return (
     <Link
       href={`/images/${image.id}`}
@@ -30,15 +13,8 @@ export function ImageGridItem({ image }: { image: UnsplashImage }) {
         background: image.color,
       }}
     >
-      <Image
-        src={image.urls.raw}
-        loader={createImageLoader({})}
-        alt={image.alt_description}
-        placeholder="blur"
-        // TODO: Blur hash isn't working!
-        blurDataURL={image.blur_hash}
-        fill
-        // TODO: Change this to include 25vw and 33vw
+      <UnsplashImage
+        image={image}
         sizes="(min-width: 1280px) 25vw,(min-width: 1024px) 33vw,(min-width: 768px) 50vw, 100vw"
       />
     </Link>

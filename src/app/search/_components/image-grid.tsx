@@ -2,10 +2,10 @@
 
 import { useWindowSize } from "@uidotdev/usehooks";
 import { quantise } from "@/lib/quantise";
-import type { UnsplashImage } from "@/server/unsplash";
+import type { UnsplashImageSchema } from "@/server/unsplash";
 import { ImageGridItem } from "./image-grid-item";
 
-export function ImageGrid({ images }: { images?: UnsplashImage[] }) {
+export function ImageGrid({ images }: { images?: UnsplashImageSchema[] }) {
   let { width } = useWindowSize();
   if (!images) return null;
 

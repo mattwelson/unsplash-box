@@ -1,36 +1,40 @@
 import { env } from "@/env";
+import { z } from "zod";
 
 const unsplashUrl = "https://api.unsplash.com";
 
-export interface UnsplashImage {
-  id: string;
-  blur_hash: string;
-  alt_description: string;
-  width: number;
-  height: number;
-  color: string;
-  created_at: string;
-  links: { download: string };
-  urls: {
-    raw: string;
-    small: string;
-  };
-  user: {
-    name: string;
-    links: {
-      html: string;
-    };
-    profile_image: {
-      large: string;
-    };
-  };
-}
+export const unsplashImageSchema = z.object({
+  id: z.string(),
+  blur_hash: z.string(),
+  alt_description: z.string(),
+  width: z.number(),
+  height: z.number(),
+  color: z.string(),
+  created_at: z.string(),
+  links: z.object({
+    download: z.string(),
+  }),
+  urls: z.object({
+    raw: z.string(),
+  }),
+  user: z.object({
+    name: z.string(),
+    links: z.object({
+      html: z.string(),
+    }),
+    profile_image: z.object({
+      large: z.string(),
+    }),
+  }),
+});
 
-interface UnsplashSearchResponse {
-  total: number;
-  total_pages: number;
-  results: UnsplashImage[];
-}
+export type UnsplashImageSchema = z.infer<typeof unsplashImageSchema>;
+
+const unsplashSearchResponseSchema = z.object({
+  total: z.number(),
+  total_pages: z.number(),
+  results: unsplashImageSchema.array(),
+});
 
 export async function searchImages({ query }: { query: string }) {
   const response = await fetch(`${unsplashUrl}/search/photos?query=${query}`, {
@@ -39,8 +43,8 @@ export async function searchImages({ query }: { query: string }) {
     },
     cache: "force-cache",
   });
-  // TODO: ZOD!
-  const result: UnsplashSearchResponse = await response.json();
+
+  const result = unsplashSearchResponseSchema.parse(await response.json());
   return result;
 }
 
@@ -52,7 +56,6 @@ export async function fetchImage({ id }: { id: string }) {
     cache: "force-cache",
   });
 
-  // TODO: ZOD!
-  const result: UnsplashImage = await response.json();
+  const result = unsplashImageSchema.parse(await response.json());
   return result;
 }

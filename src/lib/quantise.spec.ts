@@ -1,5 +1,5 @@
 import { it, expect } from "@jest/globals";
-import { results } from "@/app/search/_components/example-results.json";
+import { results } from "@/components/unsplash/example-results.json";
 
 import { quantise } from "./quantise";
 

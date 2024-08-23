@@ -3,8 +3,10 @@ import { fetchImage } from "@/server/unsplash";
 import Link from "next/link";
 import { DateTime } from "luxon";
 import { Button } from "@/components/ui/button";
-import { ArrowDownCircle, Plus } from "lucide-react";
+import { ArrowDownCircle } from "lucide-react";
 import { UnsplashImage } from "@/components/unsplash/unsplash-image";
+import { AddToCollectionsModal } from "./add-to-collections-modal";
+import { CollectionList } from "./collection-list";
 
 // TODO: Skeleton?
 export default async function PhotoPage({
@@ -35,9 +37,7 @@ export default async function PhotoPage({
           {DateTime.fromISO(image.created_at).toFormat("dd MMMM yyyy")}
         </div>
         <div className="flex gap-4">
-          <Button variant="secondary">
-            <Plus className="mr-2 size-4" /> Add to Collection
-          </Button>
+          <AddToCollectionsModal image={image} />
           <Button variant="secondary" asChild>
             <a href={image.links.download} download>
               <ArrowDownCircle className="mr-2 size-4" /> Download
@@ -47,7 +47,7 @@ export default async function PhotoPage({
       </div>
       <div className="lg:col-span-6 lg:row-span-2">
         <div
-          className="relative overflow-hidden md:mx-16 lg:mx-0 lg:rounded-md"
+          className="relative overflow-hidden md:mx-16 md:rounded-md lg:mx-0"
           style={{
             background: image.color,
             aspectRatio: image.width / image.height,
@@ -60,7 +60,7 @@ export default async function PhotoPage({
         </div>
       </div>
       <div className="px-16 lg:order-1 lg:col-span-6 lg:col-start-7 lg:p-0">
-        <h2 className="text-xl font-semibold">Collections</h2>
+        <CollectionList image={image} />
       </div>
     </div>
   );

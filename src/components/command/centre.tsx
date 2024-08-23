@@ -9,9 +9,10 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { Images, MoonIcon, Search, SunIcon } from "lucide-react";
+import { Images, Lock, MoonIcon, Search, SunIcon, User } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
+import { useAuth, UserButton } from "@clerk/nextjs";
 
 function cleanSearchValue(value: string) {
   return value.replace(/^search\s(for\s?)?(:\s)?/, "");
@@ -22,6 +23,7 @@ export function CommandCentre() {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
   const { theme, setTheme } = useTheme();
+  const { signOut, isSignedIn } = useAuth();
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -35,9 +37,11 @@ export function CommandCentre() {
     return () => document.removeEventListener("keydown", down);
   }, []);
 
-  function closeAnd(fnc: (value?: string) => void) {
+  function closeAnd(
+    fnc: ((value?: string) => void) | ((value?: string) => Promise<void>),
+  ) {
     return (value?: string) => {
-      fnc(value);
+      void fnc(value);
       setOpen(false);
     };
   }
@@ -76,6 +80,10 @@ export function CommandCentre() {
               <Images className="mr-2 size-4" />
               <span>Go to /collections</span>
             </CommandItem>
+            <CommandItem onSelect={closeAnd(() => router.push("/sign-in"))}>
+              <Lock className="mr-2 size-4" />
+              <span>Go to /sign-in</span>
+            </CommandItem>
           </CommandGroup>
           <CommandGroup heading="Settings">
             <CommandItem
@@ -92,6 +100,16 @@ export function CommandCentre() {
               <MoonIcon className="mr-2 size-4" />
               <span>Theme: Dark</span>
             </CommandItem>
+            {isSignedIn && (
+              <CommandItem
+                keywords={["user", "sign out"]}
+                onSelect={closeAnd(() => signOut())}
+              >
+                <User className="mr-2 size-4" />
+                Sign out
+                <UserButton showName />
+              </CommandItem>
+            )}
           </CommandGroup>
         </CommandList>
       </CommandDialog>
