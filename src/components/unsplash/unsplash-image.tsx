@@ -1,7 +1,5 @@
 "use client";
 import Image from "next/image";
-import type { UnsplashImageSchema } from "@/server/unsplash";
-import type { images } from "@/server/db/schema";
 import { cn } from "@/lib/utils";
 import type { ImageType } from "@/server/unsplash/convertor";
 

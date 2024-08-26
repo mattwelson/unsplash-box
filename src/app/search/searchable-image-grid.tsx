@@ -6,7 +6,6 @@ import { unpslashImageToDbModel } from "@/server/unsplash/convertor";
 import { useServerActionInfiniteQuery } from "@/lib/hooks";
 import { searchImagesAction } from "./actions";
 import { Loader2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { useEffect } from "react";
 
 // TODO: move to container
@@ -28,8 +27,8 @@ export function SearchableImageGrid({ query }: { query: string }) {
   const { ref, inView } = useInView();
 
   useEffect(() => {
-    if (inView) fetchNextPage();
-  }, [inView]);
+    if (inView) void fetchNextPage();
+  }, [inView, fetchNextPage]);
 
   return (
     <>

@@ -27,7 +27,7 @@ export function CollectionButton({
 
   async function handleClick() {
     if (action === "add") {
-      const [_, err] = await add.execute({
+      const [, err] = await add.execute({
         collectionId: collection.id,
         image,
       });
@@ -36,7 +36,7 @@ export function CollectionButton({
       onComplete?.();
       toast.success("Image added to collection");
     } else {
-      const [_, err] = await remove.execute({
+      const [, err] = await remove.execute({
         collectionId: collection.id,
         unsplashId: image.id,
       });

@@ -35,8 +35,8 @@ export function AddToCollectionsModal({
   const term = useDebounce(value, 200);
 
   useEffect(() => {
-    execute({ term });
-  }, [term]);
+    void execute({ term });
+  }, [term, execute]);
 
   function handleOpenChange(open: boolean) {
     setIsNewCollection(false);
