@@ -13,12 +13,14 @@ export function CollectionButton({
   action,
   collection,
   image,
+  onComplete,
 }: {
   action: "remove" | "add";
   collection: typeof collections.$inferSelect & {
     images: (typeof images.$inferSelect)[];
   };
   image: UnsplashImageSchema;
+  onComplete?: () => void;
 }) {
   const add = useServerAction(addImageToCollection);
   const remove = useServerAction(removeImageFromCollection);
@@ -31,6 +33,7 @@ export function CollectionButton({
       });
 
       if (err) return toast.error("Something went wrong");
+      onComplete?.();
       toast.success("Image added to collection");
     } else {
       const [_, err] = await remove.execute({
@@ -39,6 +42,7 @@ export function CollectionButton({
       });
 
       if (err) return toast.error("Something went wrong");
+      onComplete?.();
       toast.success("Image removed from collection");
     }
   }

@@ -36,13 +36,22 @@ const unsplashSearchResponseSchema = z.object({
   results: unsplashImageSchema.array(),
 });
 
-export async function searchImages({ query }: { query: string }) {
-  const response = await fetch(`${unsplashUrl}/search/photos?query=${query}`, {
-    headers: {
-      authorization: `Client-ID ${env.UNSPLASH_KEY}`,
+export async function searchImages({
+  query,
+  page = 1,
+}: {
+  query: string;
+  page?: number;
+}) {
+  const response = await fetch(
+    `${unsplashUrl}/search/photos?query=${query}&page=${page}`,
+    {
+      headers: {
+        authorization: `Client-ID ${env.UNSPLASH_KEY}`,
+      },
+      cache: "force-cache",
     },
-    cache: "force-cache",
-  });
+  );
 
   const result = unsplashSearchResponseSchema.parse(await response.json());
   return result;

@@ -79,6 +79,7 @@ export function AddToCollectionsModal({
                       collection={collection}
                       action="add"
                       image={image}
+                      onComplete={() => handleOpenChange(false)}
                     />
                   ))}
               </div>
