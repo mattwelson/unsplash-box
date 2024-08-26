@@ -20,8 +20,10 @@ import { formSchema } from "./schema";
 
 export function CreateCollectionForm({
   image,
+  onComplete,
 }: {
   image: UnsplashImageSchema;
+  onComplete: () => void;
 }) {
   const { isPending, execute } = useServerAction(createNewCollection);
 
@@ -39,7 +41,7 @@ export function CreateCollectionForm({
 
     toast.success("Collection created");
 
-    const [imageData, imageErr] = await addImageToCollection({
+    const [imageData] = await addImageToCollection({
       image,
       collectionId: collectionData[0]!.id,
     });
@@ -48,6 +50,7 @@ export function CreateCollectionForm({
     console.log({ imageData, data: collectionData });
 
     // TODO: close instead?
+    onComplete();
   }
 
   return (

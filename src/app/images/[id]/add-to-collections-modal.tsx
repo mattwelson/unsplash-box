@@ -93,7 +93,12 @@ export function AddToCollectionsModal({
               </Button>
             </>
           )}
-          {isNewCollection && <CreateCollectionForm image={image} />}
+          {isNewCollection && (
+            <CreateCollectionForm
+              image={image}
+              onComplete={() => setIsOpen(false)}
+            />
+          )}
         </div>
       </DialogContent>
     </Dialog>

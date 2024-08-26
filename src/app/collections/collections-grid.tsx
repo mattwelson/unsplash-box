@@ -35,7 +35,7 @@ export async function CollectionsGrid() {
   return userCollections.map((c) => (
     <Link
       key={c.id}
-      className="group flex flex-col rounded p-4 transition-colors hover:bg-muted"
+      className="group flex flex-col rounded-lg p-4 transition-colors hover:bg-muted"
       href={`/collections/${c.id}`}
     >
       <div
@@ -51,7 +51,7 @@ export async function CollectionsGrid() {
             "col-span-3 col-start-1 row-span-2": c.images.length >= 3,
           })}
         >
-          {!c.images[0] && <div className="bg-muted" />}
+          {!c.images[0] && <div className="h-full w-full bg-gray-400" />}
           {c.images[0] && (
             <UnsplashImage
               image={c.images[0]}
