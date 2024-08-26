@@ -2,10 +2,10 @@
 
 import { useWindowSize } from "@uidotdev/usehooks";
 import { quantise } from "@/lib/quantise";
-import type { UnsplashImageSchema } from "@/server/unsplash";
 import { ImageGridItem } from "./image-grid-item";
+import type { ImageType } from "@/server/unsplash/convertor";
 
-export function ImageGrid({ images }: { images?: UnsplashImageSchema[] }) {
+export function ImageGrid({ images }: { images?: ImageType[] }) {
   let { width } = useWindowSize();
   if (!images) return null;
 
@@ -24,7 +24,7 @@ export function ImageGrid({ images }: { images?: UnsplashImageSchema[] }) {
       {quantisedImages.map((col, i) => (
         <div key={i} className="flex flex-1 flex-col gap-6">
           {col.map((image) => (
-            <ImageGridItem key={image.id} image={image} />
+            <ImageGridItem key={image.unsplashId} image={image} />
           ))}
         </div>
       ))}

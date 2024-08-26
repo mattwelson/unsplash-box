@@ -68,14 +68,19 @@ export function AddToCollectionsModal({
                 onChange={(e) => setValue(e.target.value)}
               />
               <div className="mt-2 flex flex-col gap-2">
-                {collections?.map((collection) => (
-                  <CollectionButton
-                    key={collection.id}
-                    collection={collection}
-                    action="add"
-                    image={image}
-                  />
-                ))}
+                {collections
+                  ?.filter(
+                    (collection) =>
+                      !collection.images.find((i) => i.unsplashId === image.id),
+                  )
+                  .map((collection) => (
+                    <CollectionButton
+                      key={collection.id}
+                      collection={collection}
+                      action="add"
+                      image={image}
+                    />
+                  ))}
               </div>
               <Button
                 variant="secondary"

@@ -32,9 +32,6 @@ export async function CollectionList({
 
   if (matchingImages.length === 0) return null;
 
-  // TODO: get how many images are in the list, get the thumbnail?
-
-  console.log({ matchingImages });
   return (
     <>
       <h2 className="text-xl font-semibold">Collections</h2>

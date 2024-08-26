@@ -7,6 +7,7 @@ import { ArrowDownCircle } from "lucide-react";
 import { UnsplashImage } from "@/components/unsplash/unsplash-image";
 import { AddToCollectionsModal } from "./add-to-collections-modal";
 import { CollectionList } from "./collection-list";
+import { unpslashImageToDbModel } from "@/server/unsplash/convertor";
 
 // TODO: Skeleton?
 export default async function PhotoPage({
@@ -54,7 +55,7 @@ export default async function PhotoPage({
           }}
         >
           <UnsplashImage
-            image={image}
+            image={unpslashImageToDbModel(image)}
             sizes="(min-width: 1536px) 768px,(min-width: 768px) 50vw, 100vw"
           />
         </div>

@@ -1,12 +1,11 @@
 import Link from "next/link";
-import type { UnsplashImageSchema } from "@/server/unsplash";
 import { UnsplashImage } from "@/components/unsplash/unsplash-image";
+import { type ImageType } from "@/server/unsplash/convertor";
 
-export function ImageGridItem({ image }: { image: UnsplashImageSchema }) {
+export function ImageGridItem({ image }: { image: ImageType }) {
   return (
     <Link
-      href={`/images/${image.id}`}
-      key={image.id}
+      href={`/images/${image.unsplashId}`}
       className="relative aspect-auto w-full overflow-hidden rounded"
       style={{
         aspectRatio: image.width / image.height,

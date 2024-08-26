@@ -2,6 +2,8 @@
 import Image from "next/image";
 import type { UnsplashImageSchema } from "@/server/unsplash";
 import type { images } from "@/server/db/schema";
+import { cn } from "@/lib/utils";
+import type { ImageType } from "@/server/unsplash/convertor";
 
 export function createImageLoader({ crop = "entropy" }: { crop?: string }) {
   return function ({
@@ -18,38 +20,20 @@ export function createImageLoader({ crop = "entropy" }: { crop?: string }) {
 }
 
 export function UnsplashImage({
+  className,
   image,
-  dbImage,
   sizes,
-}:
-  | {
-      dbImage?: never;
-      image: UnsplashImageSchema;
-      sizes: string;
-    }
-  | {
-      image?: never;
-      dbImage: typeof images.$inferSelect;
-      sizes: string;
-    }) {
-  if (dbImage)
-    return (
-      <Image
-        src={dbImage.url}
-        loader={createImageLoader({})}
-        alt={dbImage.altDescription}
-        fill
-        sizes={sizes}
-      />
-    );
+}: {
+  image: ImageType;
+  sizes: string;
+  className?: string;
+}) {
   return (
     <Image
-      src={image.urls.raw}
+      className={cn(className)}
+      src={image.url}
       loader={createImageLoader({})}
-      alt={image.alt_description}
-      placeholder="blur"
-      // TODO: Blur hash isn't working!
-      blurDataURL={image.blur_hash}
+      alt={image.altDescription}
       fill
       sizes={sizes}
     />

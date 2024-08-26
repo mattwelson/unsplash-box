@@ -52,7 +52,11 @@ export function CollectionButton({
     >
       <div className="relative size-24 overflow-hidden rounded bg-muted">
         {collection.images[0] && (
-          <UnsplashImage dbImage={collection.images[0]} sizes="96px" />
+          <UnsplashImage
+            image={collection.images[0]}
+            sizes="96px"
+            className="object-cover"
+          />
         )}
       </div>
       <div className="flex flex-1 flex-col items-start">

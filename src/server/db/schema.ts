@@ -49,7 +49,8 @@ export const images = pgTable(
     height: real("height").notNull(),
     width: real("width").notNull(),
     aspectRatio: real("aspect_ratio").generatedAlwaysAs(
-      (): SQL => sql`${images.height}::real / ${images.width}`,
+      (): SQL =>
+        sql`CAST(${images.height} as numeric) / COALESCE(CAST(${images.width} as numeric), 1)`,
     ),
     altDescription: text("alt_description").notNull(),
     url: text("url").notNull(),

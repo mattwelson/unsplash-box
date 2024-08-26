@@ -8,7 +8,7 @@ import { createServerActionProcedure } from "zsa";
 import { formSchema } from "./schema";
 import { z } from "zod";
 import { unsplashImageSchema } from "@/server/unsplash";
-import { and, eq, like } from "drizzle-orm";
+import { and, eq, ilike, like } from "drizzle-orm";
 import { unpslashImageToDbModel } from "@/server/unsplash/convertor";
 import { revalidatePath } from "next/cache";
 
@@ -114,7 +114,7 @@ export const fetchCollections = authenticatedProcedure
       limit,
       where: and(
         eq(collections.userId, userId),
-        like(collections.name, `%${term}%`),
+        ilike(collections.name, `%${term}%`),
       ),
       with: {
         images: true,

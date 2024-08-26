@@ -1,9 +1,9 @@
 import type { UnsplashImageSchema } from ".";
 import { type images } from "../db/schema";
 
-export function unpslashImageToDbModel(
-  image: UnsplashImageSchema,
-): Omit<typeof images.$inferInsert, "id" | "collectionId"> {
+export type ImageType = Omit<typeof images.$inferInsert, "id" | "collectionId">;
+
+export function unpslashImageToDbModel(image: UnsplashImageSchema): ImageType {
   return {
     unsplashId: image.id,
     width: image.width,

@@ -1,6 +1,7 @@
 import { searchImages } from "@/server/unsplash";
 import { ImageGrid } from "./_components/image-grid";
 import { Skeleton } from "@/components/ui/skeleton";
+import { unpslashImageToDbModel } from "@/server/unsplash/convertor";
 
 export default async function ImageGridContainer({
   query,
@@ -14,7 +15,11 @@ export default async function ImageGridContainer({
     imageResults = await searchImages({ query });
     // console.log(JSON.stringify(imageResults));
   }
-  return <ImageGrid images={imageResults?.results} />;
+  return (
+    <ImageGrid
+      images={imageResults?.results.map((i) => unpslashImageToDbModel(i))}
+    />
+  );
 }
 
 export function ImageGridSkeleton() {
